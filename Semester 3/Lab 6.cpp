@@ -131,9 +131,9 @@ class tree
     {
         if(node)
         {
-            post_order(node->right);
+            descending(node->right);
             cout<<node->data<<" ";
-            pre_order(node->left);
+            descending(node->left);
         }
     }
     void delete_node(int x)
