@@ -96,21 +96,21 @@ class tree
             }
         }
     }
-    void pre_order(Link* node)
+    void preorder(Link* node)
     {
         if(node)
         {
             cout<<node->data<<" ";
-            pre_order(node->left);
-            pre_order(node->right);
+            preorder(node->left);
+            preorder(node->right);
         }
     }
-    void post_order(Link* node)
+    void postorder(Link* node)
     {
         if(node)
         {
-            post_order(node->left);
-            post_order(node->right);
+            postorder(node->left);
+            postorder(node->right);
             cout<<node->data<<" ";
         }
     }
