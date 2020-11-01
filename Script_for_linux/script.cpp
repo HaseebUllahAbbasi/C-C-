@@ -28,8 +28,6 @@ int main()
     {
       cmd_2[i] = commond_2[i];
     }
-
-
     system (cmd_1);
     system (cmd_2);
   }
