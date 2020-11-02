@@ -299,12 +299,17 @@ public:
 
 int main()
 {
-    //Two4Tree<int> obj;
-    //obj.insert(9);
-    //obj.insert(10);
-    //obj.insert(8);
-    //obj.inorder(obj.get_root());
-    int array [] = {1,2,3,4,5};
-    Two4Tree<int> obj(array,5);
+    /*
+    Two4Tree<int> obj;
+    obj.insert(9);
+    obj.insert(10);
+    obj.insert(8);
     obj.inorder(obj.get_root());
+    */
+
+
+    int array [] = {1,2,3,4,5,10,99,-1,900,-87};
+    Two4Tree<int> obj(array,sizeof(array)/sizeof(array[0]));
+    obj.inorder(obj.get_root());
+
 }
