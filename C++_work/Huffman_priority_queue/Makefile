@@ -1,7 +1,6 @@
 all: 
-	g++ huffman.cpp -o main
-	./main
-
+	g++ HuffmanCoder.cpp -o huffman
+	./huffman 
 clean:
 	rm -rf *o main	 
 

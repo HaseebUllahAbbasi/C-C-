@@ -2,7 +2,10 @@
 // using Priority Queue
 #include <iostream>
 #include <queue>
+#include <fstream>
+#include <string>
 using namespace std;
+
 
 // Maximum Height of Huffman Tree.
 #define MAX_SIZE 100
@@ -50,9 +53,7 @@ public:
 
 // Function to generate Huffman
 // Encoding Tree
-HuffmanTreeNode* generateTree(priority_queue<HuffmanTreeNode*,
-                              vector<HuffmanTreeNode*>,
-                                             Compare> pq)
+HuffmanTreeNode* generateTree(priority_queue<HuffmanTreeNode*,vector<HuffmanTreeNode*>,Compare> pq)
 {
 
     // We keep on looping till
@@ -103,9 +104,12 @@ HuffmanTreeNode* generateTree(priority_queue<HuffmanTreeNode*,
 // character.
 
 // It uses arr to store the codes
+	int total_b = 0; 
+
 void printCodes(HuffmanTreeNode* root,
                 int arr[], int top)
 {
+    
     // Assign 0 to the left node
     // and recur
     if (root->left) {
@@ -128,8 +132,11 @@ void printCodes(HuffmanTreeNode* root,
     // for this character from arr
     if (!root->left && !root->right) {
         cout << root->data << " ";
+
         for (int i = 0; i < top; i++) {
             cout << arr[i];
+            total_b+=sizeof(arr[i]);
+        	//cout<<sizeof(arr[i]);
         }
         cout << endl;
     }
@@ -162,15 +169,79 @@ void HuffmanCodes(char data[],
     int arr[MAX_SIZE], top = 0;
     printCodes(root, arr, top);
 }
-
 // Driver Code
-int main()
-{
-    char data[] = { 'a', 'b', 'c', 'd', 'e', 'f' };
+int main(int argc, char** argv) 
+{  
+	string str = "";
+    
+	string line;
+   ifstream myfile ("example.txt");
+   if (myfile.is_open())
+  	{
+	    while ( getline (myfile,line) )
+	    {
+	 //     cout << line << '\n';
+	    	str+=line;
+	    }
+	    myfile.close();
+  	}
+  	else
+  	{
+  		cout<<"unable to open";
+  	}
+  	int total_bits = str.length();
+  	cout<<"the total_bits are "<<total_bits*8<<endl; 
+    
+    //for (int i = 1; i < argc; ++i)
+    //{
+     //   str+=argv[i];
+    //}
+    
+    //cout<<endl;
+    //cout<<"data in the string is "<<data<<endl;
 
-    int freq[] = { 5, 9, 12, 13, 16, 45 };
-    int size = sizeof(data) / sizeof(data[0]);
+	/*
 
-    HuffmanCodes(data, freq, size);
-    return 0;
+    char data[] = { 'a', 'b', 'c', 'd', 'e', 'f' }; 
+    int freq[] = { 5, 9, 12, 13, 16, 45 }; 
+    int size = sizeof(data) / sizeof(data[0]); 
+    HuffmanCodes(data, freq, size); 
+    return 0; 
+	*/
+	int i = 0, alphabet[26] = {0}, j;
+   while (str[i] != '\0') {
+      if (str[i] >= 'a' && str[i] <= 'z') {
+         j = str[i] - 'a';
+         ++alphabet[j];
+      }
+      ++i;
+   }
+   //cout<<"Frequency of all alphabets in the string is:"<<endl;
+   int size = 0;
+   for (i = 0; i < 26; i++)
+   if(alphabet[i]!=0)
+   {
+   	size++;
+   	//cout<< char(i + 'a')<<" : "<< alphabet[i]<< endl;	
+   }
+   
+   char data[size];
+   int freq[size];
+   int count = 0;  
+   for (i = 0; i < 26; i++)
+   if(alphabet[i]!=0)
+   {
+   	freq[count] = alphabet[i];
+   	data[count] = char(i + 'a'); 
+   	//cout<< data[count]<<" : "<< freq[count]<< endl;	
+   	count++;
+   }
+   HuffmanCodes(data,freq,count);
+   cout<<"bits after compression: "<<total_b + (count*8)<<endl;
+   
+   cout<<"compression rate: "<<(total_bits*8.0 - total_b)*100/(total_bits*8);
+
+   cout<<endl;
+
 }
+

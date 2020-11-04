@@ -1,0 +1,1 @@
+hi this is the text to be written in the file and to be used for the huffman encoding algor
