@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1607623743 source:c:\users\peaceseeker\documents\c-c-\simple_project\main.cpp
+	<iostream>
+	<list>
+	<fstream>
+	"Roster.h"
+
+1607624915 c:\users\peaceseeker\documents\c-c-\simple_project\roster.h
+	<iostream>
+	"Student.h"
+
+1607624867 c:\users\peaceseeker\documents\c-c-\simple_project\student.h
+	<iostream>
+
