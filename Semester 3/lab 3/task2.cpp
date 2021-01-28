@@ -10,64 +10,101 @@ class List
 {
 	Link *head;
 	int count;
+	int max;
 	public:
 	List()
 	{
 		head = NULL;
 		count = 0;
 	}
-	void insert(int x,int ind)
+	int check_max(int num)
 	{
-		if(ind<0)
-		{
-			cout<<"ind is less than 0"<<endl;
-			return;
-		}
-		if(ind==0)
-		{
-			Link *new_Node = new Link;
-			new_Node->next = head;
-			new_Node->data = x;
+	    if(num>max)
+            max = num;
+	}
+	void insert_at_begin(int x)
+	{
+	    count++;
+	    Link *new_Node = new Link;
+	    new_Node->data = x;
+	    if(head==NULL)
+        {
 			head = new_Node;
-			count++;
-			return;
-		}
-		if(ind>0)
-		{
-			Link* current = head;
-			int number = 1;
-			while(current&&number<ind)
-			{
-				current = current->next;
-				number++;
-			}
-			if(ind>0&&current==NULL)
-			{
-				cout<<"limit exceeded"<<endl;
-				return;
-			}
-			Link* new_node = new Link;
-			new_node->data = x;
-			new_node->next = current->next;
-			current->next =  new_node;
-			count++;
-		}
+
+        }
+        else
+        {
+            new_Node->next = head;
+            head = new_Node;
+        }
+        check_max(x);
 	}
-	void display_head()
+	void insert_at_end(int x)
 	{
-		Link* node = head;
-		cout<<node->data;
+
+        count++;
+	    Link *new_Node = new Link;
+	    new_Node->data = x;
+	    if(head==NULL)
+        {
+            head = new_Node;
+        }
+        else
+        {
+            Link* current = head;
+            while(current)
+            {
+                current = current->next;
+            }
+            current->next = new_Node;
+        }
+        check_max(x);
 	}
-	void display_list()
+	void insert_after(int index, int data)
 	{
-		Link* current = head;
-		while(current)
-		{
-			cout<<current->data<<"\t";
-			current = current->next;
-		}
+	    if(index>count)
+	    return;
+	    Link* new_Node = new Link;
+	    new_Node->data = data;
+        Link* current = head;
+        int i =0 ;
+        while(i<index)
+        {
+            current = current->next;
+            i++;
+        }
+        new_Node->next = current->next;
+        current->next = new_Node;
+        count++;
+        check_max(data);
 	}
-	void deletion(int x)
+	void insert_before(int index, int data)
+	{
+	    if(index==0)
+        {
+            cout<<"there will be no insertion before zero";
+            return;
+        }
+	    if(index>count)
+        {
+            cout<<"you are exceeding index ";
+            return;
+        }
+	    Link *new_Node = new Link;
+	    new_Node->data = data;
+        Link* current = head;
+        int i =0 ;
+        while((i+1)<index)
+        {
+            current = current->next;
+            i++;
+        }
+        new_Node->next = current->next;
+        current->next = new_Node;
+        count++;
+        check_max(data);
+	}
+	void DeleteN(int x)
 	{
 		Link* current = head;
 		Link* prev = NULL;
@@ -92,52 +129,48 @@ class List
 			}
 		}
 	}
-	int search(int x)
+	void delete_from_begin()
 	{
-		int number = 0;
-		Link* current = head;
-		while(current&&current->data!=x)
-		{
-			number++;
-			current = current->next;
-		}
-		if(current)
-		{
-			return number;
-		}
-		return -1;
+	    if(head==NULL)
+            return;
+        else
+            head = head->next;
 	}
-	int length()
+	void delete_from_end()
 	{
-		return count;
-	}
-	void merge(List* obj)
-	{
-		Link* new_list_head = obj->head;
+	    if(head==NULL)
+            return;
+        else
+        {
+            Link* current = new Link;
+            current = head;
+            while(current->next->next)
+            {
+                current = current->next;
 
-		Link* current = head;
-		while(current->next)
-		{
-			current=current->next;
-		}
-		current->next = new_list_head;
+            }
+            current->next = NULL;
+        }
 	}
+	void Delete()
+	{
+	    DeleteN(max);
+	}
+	void delete_list()
+	{
+	    if(head == NULL)
+            return;
+        else
+        {
+            head->next = NULL;
+            head = NULL;
+
+        }
+
+
+	}
+
 };
 int main()
 {
-	List obj1;
-	obj1.insert(1,0);
-	obj1.insert(11,1);
-	obj1.insert(111,0);
-	obj1.display_list();
-	cout<<endl;
-	List obj2;
-	cout<<"\n";
-	obj2.insert(12,0);
-	obj2.insert(112,0);
-	obj2.insert(1112,1);
-	obj2.display_list();
-
-	obj2.merge(&obj1);
-    obj2.display_list();
-}
+    }
