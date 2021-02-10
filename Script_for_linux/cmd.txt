@@ -1,0 +1,15 @@
+First make a usb bootable of linux and 
+use as try (live)the open cmd 
+
+sudo mount /dev/sda5 /mnt *****Using the linux installation on your hard drive
+//// instead of /dev/sda5
+sudo mount --bind /dev /mnt/dev
+sudo mount --bind /proc /mnt/proc
+sudo mount --bind /sys /mnt/sys
+sudo chroot /mnt
+grub-install /dev/sda *****Using your boot device instead of /dev/sda
+CTRL-D
+sudo umount /mnt/dev
+sudo umount /mnt/proc
+sudo umount /mnt/sys
+sudo umount /mnt
